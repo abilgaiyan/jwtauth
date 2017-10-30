@@ -9,7 +9,7 @@ const router = require('./router');
 const mongoose = require('mongoose');
 
 //Db setup
-mongoose.connect('mongodb://localhost:auth/auth');
+mongoose.connect('mongodb://localhost:cacheproxy/cacheproxy');
 
 //App setup
 app.use(morgan('combined'));
