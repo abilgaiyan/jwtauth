@@ -22,7 +22,7 @@ exports.cacheIp = function(req,res,next){
         }
         else{
 
-            //ip does not exists in our dabase call maxmind service and store the result in our database.
+            //ip does not exists in our dabase call mm service and store the result in our database.
             const getdata = {"l":  config.ipcache.maxmindkey,  i: ip};
            // const queryString =   querystring.stringify('/b' + querystring);
             performRequest(Url, '/b', 'GET', getdata, res,next ); 
@@ -36,6 +36,7 @@ exports.cacheIp = function(req,res,next){
      
 }
 
+// The function to save the changes in mongo database.
 function success(responseString,ip, res,next) {
   
   const IpInfo = new IPdata({
@@ -50,7 +51,7 @@ IpInfo.save(function(err){
 });
   res.send(responseString);
 }
-
+//Call other web service and return the results.
 function performRequest(host, endpoint, method, data, res,next) {
     var dataString = JSON.stringify(data);
     var headers = {};
