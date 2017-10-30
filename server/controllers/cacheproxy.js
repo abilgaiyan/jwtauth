@@ -10,7 +10,8 @@ exports.cacheIp = function(req,res,next){
     
     //Check the request parameter whether quer parameter name ip  exists, if not return error message
     if (!ip){
-      return res.status(422).send({error:'Please provide ip in query parameter.'});
+      //return res.status(422).send({error:'Please provide ip in query parameter.'});
+      return res.send({error:',,,,Please provide ip in query parameter.'});
     }
     //Check the ip in database
     IPdata.findOne({ip: ip}, function(err, ipExists){
