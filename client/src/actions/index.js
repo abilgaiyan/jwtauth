@@ -1,6 +1,6 @@
 import { browserHistory } from 'react-router';
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR} from './types';
+import { AUTH_USER, UNAUTH_USER, AUTH_ERROR} from './types';
 
 const API_URL ='http://localhost:3090';
 export function signinUser({email, password}){
@@ -41,6 +41,36 @@ export function signoutUser(){
             browserHistory.push('/signin');
                 
     }
+}
+
+export function signupUser({email, password}){
+    return function(dispatch){
+        
+      //Call server side  api method to sign in
+      axios.post(`${API_URL}/signup`, {email, password})
+       .then( response =>{
+         //Response is good - indicate the user is authenticated
+         // - update state as authenticated 
+            dispatch({type:AUTH_USER, payload:true});
+         // - save the authenticated token in local storage.
+            localStorage.setItem('token', response.data.token);
+ 
+         // - redirect the user to 'feature' page [Page where authenticate user can visit].
+            browserHistory.push('/features');
+ 
+     })
+     .catch( (error) => {
+        // Response is bad
+        // show user error message.
+        //debugger;
+        //console.log(error.response);
+        dispatch(authError(error.response.data.error));
+ 
+     });
+ 
+    
+     }
+     
 }
 
 export function authError(error){

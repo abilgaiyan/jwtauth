@@ -6,7 +6,7 @@ export default function(state = initialState, action){
     
     switch(action.type){
         case AUTH_USER:
-          return {...state, Authentication: true};
+          return {...state, Error:'', Authentication: true};
         case UNAUTH_USER:
           return {...state, Authentication: false};
         case AUTH_ERROR:

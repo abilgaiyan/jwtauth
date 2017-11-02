@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+
 class Header extends Component {
 
     signoutUser(){
@@ -9,25 +10,32 @@ class Header extends Component {
             this.props.signoutUser();
         }
     }
-    renderHtml(){
+    renderLinkHtml(){
         if (this.props.authenticated){  
            return (
             <li className="nav-item">
-            <Link to="/signin" onClick={this.signoutUser.bind(this)} >Sign out</Link></li> 
+            {/* <Link to="/signin" onClick={this.signoutUser.bind(this)} >Sign out</Link></li>  */}
+            <Link to="/signout" className="nav-link" >Sign Out</Link></li> 
            );
 
         }
-        return (
+        return [
             <li className="nav-item">
-             <Link to="/signin" >Sign in</Link></li> 
-           );
+             <Link to="/signin" className="nav-link" >Sign In</Link>
+            </li>, 
+            <li className="nav-item">
+             <Link to="/signup" className="nav-link" >Sign Up</Link>
+            </li>, 
+           
+           ];
 
     }
     render(){
         return (
               <nav className="navbar navbar-light">
+                <Link to="/" className="nav-link">Home</Link>   
                 <ul className="navbar-nav">
-                    {this.renderHtml()}
+                    {this.renderLinkHtml()}
                 </ul>  
                  
               </nav>  
